@@ -27,8 +27,11 @@ const yong = (() => {
         child = document.createTextNode(child);
       }else if(typeof child === 'function'){
         child = child();
+      }else if(Array.isArray(child)){
+        child.forEach(c => elem.appendChild(c));
       }
-      elem.appendChild(child);
+      
+      if(!Array.isArray(child)) elem.appendChild(child);
     }
 
     return elem;
@@ -65,6 +68,9 @@ const yong = (() => {
       _stateValue = newValue; // 11
 
       // 두 값이 같은지 비교해서 같지 않을 경우에(상태가 변경된 경우) 리렌더링한다.
+      // 객체일 때 같은 메모리 주소를 가지고 있으면 true
+      // 두 값이 모두 undefined 이거나 null 이면 true
+      //
       if(!Object.is(oldValue, newValue)){
         _root.render();
       }
