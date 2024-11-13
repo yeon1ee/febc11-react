@@ -7,3 +7,11 @@ var itemList = [
 console.log(itemList[0]);
 console.log(itemList[1]);
 
+var [first, second] = itemList;
+console.log(first);
+console.log(second);
+
+console.log(second.no, second.todo);
+
+var { no, todo, done } = second;
+console.log(no, todo, done);  
