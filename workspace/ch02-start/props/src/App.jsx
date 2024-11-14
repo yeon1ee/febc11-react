@@ -1,12 +1,13 @@
-import Header from "./components/Header";
 import Counter from "./components/Counter";
+import Header from "./components/Header";
 
-function App() {
-  return (  
+function App(){
+  return (
     <div id="app">
       <Header />
       <Counter />
-    </div>);
+    </div>
+  );
 }
 
 export default App
