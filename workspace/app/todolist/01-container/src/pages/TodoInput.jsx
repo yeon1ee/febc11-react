@@ -26,5 +26,4 @@ function TodoInput({ addItem }){
   );
 }
 
-
 export default TodoInput;
