@@ -1,7 +1,7 @@
 import useAxios from "@hooks/useAxios";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import { useEffect, useState } from "react";
-import { Link, Outlet, useParams } from "react-router-dom";
+import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 
 // const dummyData = {
 //   item: {
@@ -14,7 +14,10 @@ import { Link, Outlet, useParams } from "react-router-dom";
 //   }
 // };
 
+
 function TodoDetail() {
+
+  const navigate = useNavigate();
   // URL의 파라미터 추출
   // 라우터에 'list/:_id'로 등록된 컴포넌트가 호출되는 경우
   // URL이 list/3일 때 useParams()는 { _id: 3 }을 반환
@@ -55,7 +58,7 @@ function TodoDetail() {
             <div>수정일 : { data.item.updatedAt }</div>
 
             <Link to="./edit">수정</Link>
-            <Link to="/list">목록</Link>
+            <button type="button" onClick={ () => navigate(-1) }>목록</button>
           </div>
 
           <Outlet context={{ item: data.item, refetch: fetchDetail }} />
