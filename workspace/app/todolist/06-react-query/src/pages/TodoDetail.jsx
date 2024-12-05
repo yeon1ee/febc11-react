@@ -14,15 +14,14 @@ import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 //   }
 // };
 
-
 function TodoDetail() {
-
-  const navigate = useNavigate();
   // URL의 파라미터 추출
   // 라우터에 'list/:_id'로 등록된 컴포넌트가 호출되는 경우
   // URL이 list/3일 때 useParams()는 { _id: 3 }을 반환
   const { _id } = useParams();
   console.log(_id);
+
+  const navigate = useNavigate();
 
   const [data, setData] = useState();
   // useEffect(() => {
@@ -39,6 +38,7 @@ function TodoDetail() {
     const res = await axios.get(`/todolist/${_id}`);
     setData(res.data);
   };
+
   useEffect(() => {
     fetchDetail();
   }, []); // 마우트될 때 한번만 호출
@@ -61,7 +61,7 @@ function TodoDetail() {
             <button type="button" onClick={ () => navigate(-1) }>목록</button>
           </div>
 
-          <Outlet context={{ item: data.item, refetch: fetchDetail }} />
+          <Outlet context={{ item: data.item }} />
         </>
       ) }
 
