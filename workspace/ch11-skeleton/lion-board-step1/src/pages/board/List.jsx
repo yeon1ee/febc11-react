@@ -1,30 +1,7 @@
-import { Link, useParams } from "react-router-dom";
-import ListItem from "./ListItem";
-import { useQuery } from "@tanstack/react-query";
-import useAxiosInstance from "@hooks/useAxiosInstance";
-
+import ListItem from "@pages/board/ListItem";
+import { Link } from "react-router-dom";
 
 export default function List() {
-  const axios = useAxiosInstance();
-
-  const { type } = useParams();
-
-  const { data } = useQuery({
-    queryKey: ['posts', 'brunch'],
-    queryFn: () => axios.get('/posts', { params: { type: 'brunch' } }),
-    select: res => res.data,
-    staleTime: 1000 * 10,
-  });
-
-  console.log(data);
-
-  if(!data){
-    return <div>로딩중...</div>
-  }
-
-  const list = data.item.map(item => <ListItem key={ item._id } item={ item }/>);
-
-
   return (
     <main className="min-w-80 p-10">
       <div className="text-center py-4">
@@ -65,8 +42,8 @@ export default function List() {
           </thead>
           <tbody>
 
-            { list }
-
+            <ListItem />
+            
           </tbody>
         </table>
         <hr />
@@ -81,6 +58,9 @@ export default function List() {
             </li>
           </ul>
         </div>
+
+
+
       </section>
     </main>
   );

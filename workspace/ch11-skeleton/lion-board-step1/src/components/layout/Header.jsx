@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 export default function Header() {
-  return(
+  return (
     <header className="px-8 min-w-80 bg-slate-100 dark:bg-gray-600 text-gray-800 dark:text-gray-200 transition-color duration-500 ease-in-out">
       <nav className="flex flex-wrap justify-center items-center p-4 md:flex-nowrap md:justify-between">
         <div className="w-1/2 order-1 md:w-auto">
@@ -21,8 +21,8 @@ export default function Header() {
         <div className="w-1/2 order-1 flex justify-end items-center md:order-2 md:w-auto">
 
           <div className="flex justify-end">
-            <Link to="/users/Login" className="bg-orange-500 py-1 px-2 text-sm text-white font-semibold ml-2 hover:bg-amber-400 rounded">로그인</Link>
-            <Link to="/users/SignUp" className="bg-gray-900 py-1 px-2 text-sm text-white font-semibold ml-2 hover:bg-amber-400 rounded">회원가입</Link>
+            <Link to="/users/login" className="bg-orange-500 py-1 px-2 text-sm text-white font-semibold ml-2 hover:bg-amber-400 rounded">로그인</Link>
+            <Link to="/users/signup" className="bg-gray-900 py-1 px-2 text-sm text-white font-semibold ml-2 hover:bg-amber-400 rounded">회원가입</Link>
           </div>
 
           <button

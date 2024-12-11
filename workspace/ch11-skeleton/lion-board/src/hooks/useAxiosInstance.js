@@ -7,12 +7,13 @@ function useAxiosInstance() {
     headers: {
       'Content-Type': 'application/json', // request의 데이터 타입
       accept: 'application/json', // response의 데이터 타입
-      'client-id': '00-brunch'
+      'client-id': '00-brunch',
     }
   });
 
   // 요청 인터셉터 추가하기
   instance.interceptors.request.use((config) => {
+    config.headers['Authorization'] = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjQ3LCJ0eXBlIjoidXNlciIsIm5hbWUiOiJkZGR5IiwiZW1haWwiOiJhYmNkQGdtYWlsLmNvbSIsImxvZ2luVHlwZSI6ImVtYWlsIiwiaWF0IjoxNzMzNzI3MDA5LCJleHAiOjE3MzM4MTM0MDksImlzcyI6IkZFU1AifQ.6PgruaV03lVWgiTuC8GbmcwipK5yg8J5Qxgh--rYKGw`
     // 요청이 전달되기 전에 필요한 공통 작업 수행
     config.params = {
       delay: 500,
@@ -34,7 +35,7 @@ function useAxiosInstance() {
     return Promise.reject(error);
   });
 
-  return instance; 
+  return instance;
 }
 
 export default useAxiosInstance;
