@@ -1,22 +1,42 @@
 import InputError from "@components/InputError";
 import useAxiosInstance from "@hooks/useAxiosInstance";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors }, setError } = useForm();
   const axios = useAxiosInstance();
   const addUser = useMutation({
-    mutationFn: formData => {
-      const body = {
-        type: 'user',
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-      };
-      return axios.post(`/users`, body);
+    mutationFn: async userInfo => {
+      // userInfo { name: '무지', email: 'aa@bb.cc', password: '11111111', attach: File }
+
+      // 이미지 먼저 업로드
+      if(userInfo.attach.length > 0){
+        const imageFormData = new FormData();
+        imageFormData.append('attach', userInfo.attach[0]);
+
+        const fileRes = await axios('/files', {
+          method: 'post',
+          headers: {
+            // 파일 업로드시 필요한 설정
+            'Content-Type': 'multipart/form-data'
+          },
+          data: imageFormData
+        });
+
+        userInfo.image = fileRes.data.item[0];
+        // userInfo { name: '무지', email: 'aa@bb.cc', password: '11111111', attach: File, image: { orginalname: '', name: '', path: '' } }
+        delete userInfo.attach;
+        // userInfo { name: '무지', email: 'aa@bb.cc', password: '11111111', image: { orginalname: '', name: '', path: '' } }
+      }
+
+      userInfo.type = 'user';
+      // userInfo { type: 'user', name: '무지', email: 'aa@bb.cc', password: '11111111', image: { orginalname: '', name: '', path: '' } }
+
+      console.log(userInfo);
+      return axios.post(`/users`, userInfo);
     },
     onSuccess: () => {
       alert('회원가입 완료');

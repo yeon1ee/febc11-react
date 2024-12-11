@@ -1,6 +1,9 @@
+import useUserStore from "@zustand/userStore";
 import axios from "axios";
 
 function useAxiosInstance() {
+  const { user } = useUserStore();
+  
   const instance = axios.create({
     baseURL: 'https://11.fesp.shop',
     timeout: 1000*15,
@@ -13,7 +16,10 @@ function useAxiosInstance() {
 
   // 요청 인터셉터 추가하기
   instance.interceptors.request.use((config) => {
-    config.headers['Authorization'] = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjQ3LCJ0eXBlIjoidXNlciIsIm5hbWUiOiJkZGR5IiwiZW1haWwiOiJhYmNkQGdtYWlsLmNvbSIsImxvZ2luVHlwZSI6ImVtYWlsIiwiaWF0IjoxNzMzNzI3MDA5LCJleHAiOjE3MzM4MTM0MDksImlzcyI6IkZFU1AifQ.6PgruaV03lVWgiTuC8GbmcwipK5yg8J5Qxgh--rYKGw`
+    if(user){
+      config.headers['Authorization'] = `Bearer ${user.accessToken}`; // 일반 회원
+    }
+    
     // 요청이 전달되기 전에 필요한 공통 작업 수행
     config.params = {
       delay: 500,
