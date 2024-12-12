@@ -3,6 +3,7 @@ import CommentList from "@pages/board/CommentList";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import useUserStore from "@zustand/userStore";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { Helmet } from 'react-helmet-async';
 
 export default function Detail() {
 
