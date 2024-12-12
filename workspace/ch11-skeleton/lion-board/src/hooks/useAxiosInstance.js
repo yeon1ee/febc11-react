@@ -12,7 +12,7 @@ function useAxiosInstance() {
   const location = useLocation();
   
   const instance = axios.create({
-    baseURL: 'https:/11.fesp.shop',
+    baseURL: 'https://11.fesp.shop',
     timeout: 1000*15,
     headers: {
       'Content-Type': 'application/json', // request의 데이터 타입
